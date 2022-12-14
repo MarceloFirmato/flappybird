@@ -144,19 +144,28 @@ function colidiu(passaro, barreiras) {
 
     return colidiu
 }
-function jogarNovamente(){
-  this.elemento = novoElemento("button", "reiniciarJogo")
-  this.elemento.innerHTML = "Game Over"
-  document.getElementsByClassName('reiniciarJogo')
-  document.getElementsByClassName('reiniciarJogo').style.display = 'absolute'
-  if (colidiu(passaro, barreiras)) {
-    areaDoJogo.appendChild('button')
-    button.addEventListener("click", function() {
+
+function jogarNovamente() {
+  this.elemento = novoElemento('button', 'jogarNovamente');
+  this.elemento.innerHTML = 'Jogar Novamente'
+  this.elemento.addEventListener('click', function() {
     location.reload()
-    })
+  })
 }
 
+function GameOver() {
+  const btn = new jogarNovamente();
+
+  this.elemento = novoElemento("div", "gameOver")
+  this.elemento.innerHTML = "<div class='gameOver-title'>Game Over</div>"
+  this.elemento.appendChild(btn.elemento);
+
+  this.mostrar = () => {
+    this.elemento.classList.add('visivel')
+    this.elemento.querySelector('button').focus()
+  }
 }
+
 function FlappyBird() {
     let pontos = 0
 
@@ -169,9 +178,11 @@ function FlappyBird() {
         () => progresso.atualizarPontos(++pontos))
     
     const passaro = new Passaro(altura)
+    const gameOver = new GameOver()
 
     areaDoJogo.appendChild(progresso.elemento)
     areaDoJogo.appendChild(passaro.elemento)
+    areaDoJogo.appendChild(gameOver.elemento)
     barreiras.pares.forEach(par => areaDoJogo.appendChild(par.elemento))
 
     this.start = () => {
@@ -182,6 +193,7 @@ function FlappyBird() {
 
             if (colidiu(passaro, barreiras)) {
                 clearInterval(temporizador)
+                gameOver.mostrar()
             }
         }, 20)
     }

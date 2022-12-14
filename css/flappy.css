@@ -65,3 +65,28 @@
   font-size: 70px;
   z-index: 100;
 }
+
+.gameOver {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.gameOver.visivel {
+  visibility: visible;
+  opacity: 1;
+}
+
+.gameOver-title {
+  font-size: 42px;
+}
